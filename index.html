@@ -302,11 +302,12 @@
     .tab-content { display: none; }
     .tab-content.active { display: block; }
     
-    /* Updated project grid - 2 columns */
+    /* Updated project grid - 2 columns with proper alignment */
     .project-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 2rem;
+      align-items: stretch; /* This ensures all cards have equal height */
     }
 
     /* Project cards with SMALL preview images */
@@ -319,16 +320,17 @@
       overflow: hidden;
       display: flex;
       flex-direction: column;
+      height: 100%; /* Take full height of grid cell */
     }
     .project-card:hover {
       transform: var(--hover-lift);
       border-color: var(--accent);
     }
 
-    /* SMALL preview image container - 200px height */
+    /* SMALL preview image container - fixed height */
     .project-img {
       width: 100%;
-      height: 200px;  /* Small preview size */
+      height: 200px;
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
@@ -337,6 +339,7 @@
       transition: 0.3s;
       cursor: pointer;
       position: relative;
+      flex-shrink: 0; /* Prevent image from shrinking */
     }
 
     .project-img:hover {
@@ -371,12 +374,22 @@
 
     .project-content {
       padding: 1.5rem 1.5rem 1.8rem 1.5rem;
+      flex-grow: 1; /* Take remaining space */
+      display: flex;
+      flex-direction: column;
     }
+    
     .project-content h3 {
       color: var(--primary);
       margin-bottom: 0.8rem;
       font-size: 1.4rem;
     }
+    
+    .project-content p {
+      margin-bottom: 1rem;
+      flex-grow: 1; /* Push tech tags and links to bottom */
+    }
+    
     .project-tech {
       display: flex;
       flex-wrap: wrap;
@@ -390,6 +403,9 @@
       font-size: 0.8rem;
       font-weight: 500;
       color: var(--primary-light);
+    }
+    .project-links {
+      margin-top: auto; /* Push to bottom */
     }
     .project-links a {
       color: var(--accent);
@@ -577,7 +593,7 @@
       }
       
       .project-img {
-        height: 180px;  /* Even smaller on mobile */
+        height: 180px;
       }
       
       .lightbox-close {
@@ -606,6 +622,11 @@
       font-size: 0.7rem;
       backdrop-filter: blur(2px);
       pointer-events: none;
+    }
+
+    /* Fix for extra > symbols */
+    .project-img {
+      background-image: url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\' viewBox=\'0 0 200 200\'%3E%3Crect width=\'200\' height=\'200\' fill=\'%232b6f9e\' opacity=\'0.1\'/%3E%3Ctext x=\'50\' y=\'115\' font-family=\'Arial\' font-size=\'40\' fill=\'%230f2b4b\'%3E📊%3C/text%3E%3C/svg%3E');
     }
   </style>
 </head>
@@ -699,7 +720,7 @@
       <div class="project-grid">
         <!-- Customer Segmentation card -->
         <div class="project-card fade-ani">
-          <div class="project-img" style="background-image: url('3.png');"></div>
+          <div class="project-img" style="background-image: url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'200\' viewBox=\'0 0 400 200\'%3E%3Crect width=\'400\' height=\'200\' fill=\'%232b6f9e\' opacity=\'0.1\'/%3E%3Ctext x=\'120\' y=\'115\' font-family=\'Arial\' font-size=\'30\' fill=\'%230f2b4b\'%3ECustomer Segmentation%3C/text%3E%3C/svg%3E');"></div>
           <div class="project-content">
             <h3>🛍️ Customer Segmentation App</h3>
             <p>K-Means clustering on behavioral data (age, income, spending). Used Elbow method, StandardScaler, deployed via Streamlit + Joblib.</p>
@@ -712,7 +733,7 @@
         
         <!-- Healthcare Analysis card -->
         <div class="project-card fade-ani">
-          <div class="project-img" style="background-image: url('3.png');"></div>></div>
+          <div class="project-img" style="background-image: url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'200\' viewBox=\'0 0 400 200\'%3E%3Crect width=\'400\' height=\'200\' fill=\'%232b6f9e\' opacity=\'0.1\'/%3E%3Ctext x=\'120\' y=\'115\' font-family=\'Arial\' font-size=\'30\' fill=\'%230f2b4b\'%3EHealthcare Analysis%3C/text%3E%3C/svg%3E');"></div>
           <div class="project-content">
             <h3>🏥 Healthcare Data Analysis</h3>
             <p>Analyzed 100k patient records; identified high‑risk groups (12.9k patients). Power BI dashboard with dynamic slicers for condition/age/gender.</p>
@@ -723,7 +744,7 @@
         
         <!-- Pizza Sales card -->
         <div class="project-card fade-ani">
-          <div class="project-img" style="background-image: url('3.png');"></div>></div>
+          <div class="project-img" style="background-image: url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'200\' viewBox=\'0 0 400 200\'%3E%3Crect width=\'400\' height=\'200\' fill=\'%232b6f9e\' opacity=\'0.1\'/%3E%3Ctext x=\'140\' y=\'115\' font-family=\'Arial\' font-size=\'30\' fill=\'%230f2b4b\'%3EPizza Sales%3C/text%3E%3C/svg%3E');"></div>
           <div class="project-content">
             <h3>🍕 Pizza Sales Analytics</h3>
             <p>SQL + Power BI: KPIs (₹817K revenue, 21k orders). Identified peak days (Fri/Sat) and large pizza contribution (45.89% revenue).</p>
@@ -739,7 +760,7 @@
       <div class="project-grid">
         <!-- Healthcare Risk Power BI -->
         <div class="project-card fade-ani">
-          <div class="project-img" style="background-image: url('3.png');"></div>></div>
+          <div class="project-img" style="background-image: url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'200\' viewBox=\'0 0 400 200\'%3E%3Crect width=\'400\' height=\'200\' fill=\'%232b6f9e\' opacity=\'0.1\'/%3E%3Ctext x=\'100\' y=\'115\' font-family=\'Arial\' font-size=\'30\' fill=\'%230f2b4b\'%3EHealthcare Risk%3C/text%3E%3C/svg%3E');"></div>
           <div class="project-content">
             <h3>📊 Healthcare Risk Power BI</h3>
             <p>Glucose, BMI, BP trends. Age group 50-69 highest diabetic cases. Interactive slicers.</p>
@@ -749,7 +770,7 @@
         
         <!-- Sales Performance Dashboard -->
         <div class="project-card fade-ani">
-          <div class="project-img" style="background-image: url('3.png');"></div>
+          <div class="project-img" style="background-image: url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'200\' viewBox=\'0 0 400 200\'%3E%3Crect width=\'400\' height=\'200\' fill=\'%232b6f9e\' opacity=\'0.1\'/%3E%3Ctext x=\'100\' y=\'115\' font-family=\'Arial\' font-size=\'30\' fill=\'%230f2b4b\'%3ESales Performance%3C/text%3E%3C/svg%3E');"></div>
           <div class="project-content">
             <h3>📈 Sales Performance Dashboard</h3>
             <p>Tracked monthly/quarterly revenue, category contribution (Classic 26.9%), avg order value.</p>
@@ -759,7 +780,7 @@
         
         <!-- A/B Testing Analysis -->
         <div class="project-card fade-ani">
-          <div class="project-img" style="background-image: url('3.png');"></div>
+          <div class="project-img" style="background-image: url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'200\' viewBox=\'0 0 400 200\'%3E%3Crect width=\'400\' height=\'200\' fill=\'%232b6f9e\' opacity=\'0.1\'/%3E%3Ctext x=\'120\' y=\'115\' font-family=\'Arial\' font-size=\'30\' fill=\'%230f2b4b\'%3EA/B Testing%3C/text%3E%3C/svg%3E');"></div>
           <div class="project-content">
             <h3>🧪 A/B Testing Analysis</h3>
             <p>Statistical analysis on marketing campaign (fictional) using Python (scipy) – presented via Jupyter notebook.</p>
@@ -897,16 +918,11 @@
         const modalImg = document.getElementById('lightboxImage');
         const captionText = document.getElementById('lightboxCaption');
         
-        // Get the ORIGINAL image source from data-fullimage attribute
-        // Fallback to background-image if data-fullimage not set
-        let imgSrc = imgElement.dataset.fullimage || '';
-        
-        if (!imgSrc) {
-          // If no data-fullimage, try to get from background-image
-          const bgImage = window.getComputedStyle(imgElement).backgroundImage;
-          const match = bgImage.match(/url\(["']?([^"')]+)["']?\)/);
-          imgSrc = match ? match[1] : '';
-        }
+        // Get the ORIGINAL image source from background-image
+        let imgSrc = '';
+        const bgImage = window.getComputedStyle(imgElement).backgroundImage;
+        const match = bgImage.match(/url\(["']?([^"')]+)["']?\)/);
+        imgSrc = match ? match[1] : '';
         
         // Get caption from the project title
         const projectCard = imgElement.closest('.project-card');
